@@ -45,7 +45,7 @@ const BottomTab = ({ state, descriptors, navigation }) => {
             onLongPress={onLongPress}
             style={{ flex: 1 }}
           >
-            <CustomButtom label={label} active={isFocused} onPress={onPress} onLongPress={onLongPress} key={index} />
+            <CustomButtom label={label} active={isFocused} onPress={onPress} onLongPress={onLongPress}  />
           </TouchableOpacity>
         );
       })}

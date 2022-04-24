@@ -5,37 +5,41 @@ import { getDatabase, ref, onValue, query, set } from 'firebase/database';
 import { Header } from '../../compontents';
 import { colors, fonts } from '../../utils';
 import CountDown from 'react-native-countdown-component';
+import {useDispatch, useSelector} from 'react-redux';
 
-const Kuis = ({route}) => {
- const id = route.params.id;
+const Kuis = ({route, navigation}) => {
+  const stateGlobal = useSelector(state => state);
+  const dispatch = useDispatch();
  const data = route.params;
  const [jawab, setJawab] = useState('');
  const [soal, setSoal] = useState('');
- const [no, setNo] = useState(1);
  const db = getDatabase(Fire);
 
  useEffect(() => {
-   const queryData = query(ref(db, 'soal/' + id + '/' + no));
+   const queryData = query(ref(db, 'soal/' + stateGlobal.idKuis + '/' + stateGlobal.no));
    onValue(queryData, reff => {
      if(reff.val){
        setSoal(reff.val())
+     }else{
+      navigation.replace('Kuis2', data);
      }
    })
  },[])
 
- const setData = () => {
-  // let data = {
-  //   fullName: form.fullName,
-  //   pekerjaan:form.pekerjaan,
-  //   email: form.email,
-  //   uid: success.user.uid
-  // };
-  // set(ref(db,'users/'+ success.user.uid), data)
- 
- }
 
  const pilih = (val) => {
   setJawab(val);
+  const no = stateGlobal.no + 1;
+  const totalBenar = stateGlobal.benar + 1;
+  dispatch({type:"SET_NO", value: no})
+  if(val === soal.jawaban){
+    dispatch({type:"SET_BENAR", value: totalBenar})
+  }
+  if(no >= data.soal){
+    navigation.replace('Kuis2', data)
+  }else{
+    navigation.replace('Kuis', data)
+  }
  }
 
 
@@ -45,13 +49,13 @@ const Kuis = ({route}) => {
       <Header />
       <View style={styles.question}>    
       <View>
-        <Text style={styles.title}>{soal.pertanyaan}</Text>
+        <Text style={styles.title}>{stateGlobal.no}. {soal.pertanyaan}</Text>
       </View>
       <View>
       <CountDown
       size={30}
-      until={600}
-      onFinish={() => alert(jawab)}
+      until={5}
+      onFinish={() => pilih('z')}
       digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: colors.primary}}
       digitTxtStyle={{color: colors.primary}}
       timeLabelStyle={{color: 'red', fontWeight: 'bold'}}

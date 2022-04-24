@@ -1,10 +1,18 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { fonts, colors } from '../../utils';
 import { Button, Gap, Input, Select } from '../../compontents';
 
 
 const Register = ({navigation}) => {
+  const [nama, setNama] = useState('');
+  const [JL, setJL] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const auth = getAuth(Fire);
+  const db = getDatabase(Fire);
+  
   return (
     <ScrollView>
     <View style={styles.page}>
@@ -14,7 +22,7 @@ const Register = ({navigation}) => {
       </View>
       <View style={styles.content}>
       <Gap height={16} />
-        <Input title="Nama Lengkap" />
+        <Input title="Nama Lengkap" onChangeText={(val) => setNama(val)} value={nama} />
       <Gap height={16} />
         <Select title="Jenis Kelamin"
         onValueChange={(res) => console.log(res)}
@@ -24,9 +32,9 @@ const Register = ({navigation}) => {
       ]}
        />
         <Gap height={16} />
-        <Input title="E-Mail" />
+        <Input title="E-Mail" onChangeText={(val) => setEmail(val)} value={email} />
         <Gap height={16} />
-        <Input title="Password" />
+        <Input title="Password" onChangeText={(val) => setPassword(val)} value={password}  secureTextEntry  />
         <Gap height={32} />
         <Button title="Buat Akun" onPress={() => navigation.replace("MyApp")} />
       </View>
