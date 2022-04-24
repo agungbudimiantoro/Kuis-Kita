@@ -4,4 +4,5 @@ import Register from './Register';
 import Home from './Home';
 import About from './About';
 import Kuis from './Kuis';
-export {Login, Splash, Register, Home, About, Kuis};
+import Kuis2 from './Kuis/kuis';
+export {Login, Splash, Register, Home, About, Kuis, Kuis2};

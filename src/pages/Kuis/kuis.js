@@ -1,20 +1,19 @@
 import React,{ useEffect, useState, useRef} from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
 import { Fire } from '../../config';
-import { getDatabase, ref, onValue, query, set } from 'firebase/database';
+import { getDatabase, ref, onValue, query } from 'firebase/database';
 import { Header } from '../../compontents';
 import { colors, fonts } from '../../utils';
 import CountDown from 'react-native-countdown-component';
 
-const Kuis = ({route}) => {
+const Kuis2 = ({route}) => {
  const id = route.params.id;
  const data = route.params;
- const [jawab, setJawab] = useState('');
  const [soal, setSoal] = useState('');
- const [no, setNo] = useState(1);
- const db = getDatabase(Fire);
+ const [no, setNo] = useState(2);
 
  useEffect(() => {
+   const db = getDatabase(Fire);
    const queryData = query(ref(db, 'soal/' + id + '/' + no));
    onValue(queryData, reff => {
      if(reff.val){
@@ -23,20 +22,7 @@ const Kuis = ({route}) => {
    })
  },[])
 
- const setData = () => {
-  // let data = {
-  //   fullName: form.fullName,
-  //   pekerjaan:form.pekerjaan,
-  //   email: form.email,
-  //   uid: success.user.uid
-  // };
-  // set(ref(db,'users/'+ success.user.uid), data)
  
- }
-
- const pilih = (val) => {
-  setJawab(val);
- }
 
 
   return (
@@ -50,8 +36,8 @@ const Kuis = ({route}) => {
       <View>
       <CountDown
       size={30}
-      until={600}
-      onFinish={() => alert(jawab)}
+      until={10}
+      onFinish={() => alert('Finished')}
       digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: colors.primary}}
       digitTxtStyle={{color: colors.primary}}
       timeLabelStyle={{color: 'red', fontWeight: 'bold'}}
@@ -64,40 +50,25 @@ const Kuis = ({route}) => {
       </View>
       <View style={styles.content}>
         <View>
-          {/* a */}
-          {jawab == 'a' && (  <TouchableOpacity style={styles.boxActv} onPress={() => pilih('a')}>
-            <Text style={styles.optionActv} >A.{soal.a}</Text>
-          </TouchableOpacity>)}
-          {jawab != 'a' && (  <TouchableOpacity style={styles.box} onPress={() => pilih('a')}>
+          <TouchableOpacity style={styles.box}>
             <Text style={styles.option} >A.{soal.a}</Text>
-          </TouchableOpacity>)}
-        {/* c */}
-        
+          </TouchableOpacity>
           <View>
-          {jawab == 'c' && (  <TouchableOpacity style={styles.boxActv} onPress={() => pilih('c')}>
-            <Text style={styles.optionActv} >C. {soal.c}</Text>
-          </TouchableOpacity>)}
-          {jawab != 'c' && (  <TouchableOpacity style={styles.box} onPress={() => pilih('c')}>
-            <Text style={styles.option} >C. {soal.c}</Text>
-          </TouchableOpacity>)}
+            <TouchableOpacity style={styles.box}>
+            <Text style={styles.option}>C.{soal.c}</Text>
+            </TouchableOpacity>
           </View>
         </View>      
         <View>
           <View>
-          {jawab == 'b' && (  <TouchableOpacity style={styles.boxActv} onPress={() => pilih('b')}>
-            <Text style={styles.optionActv} >B.{soal.b}</Text>
-          </TouchableOpacity>)}
-          {jawab != 'b' && (  <TouchableOpacity style={styles.box} onPress={() => pilih('b')}>
-            <Text style={styles.option} >B.{soal.b}</Text>
-          </TouchableOpacity>)}
+            <TouchableOpacity style={styles.box}>
+            <Text style={styles.option}>B. {soal.b}</Text>
+            </TouchableOpacity>
           </View>
           <View>
-          {jawab == 'd' && (  <TouchableOpacity style={styles.boxActv} onPress={() => pilih('d')}>
-            <Text style={styles.optionActv} >D.{soal.d}</Text>
-          </TouchableOpacity>)}
-          {jawab != 'd' && (  <TouchableOpacity style={styles.box} onPress={() => pilih('d')}>
-            <Text style={styles.option} >D.{soal.d}</Text>
-          </TouchableOpacity>)}
+            <TouchableOpacity style={styles.box}>
+            <Text style={styles.option}>D. {soal.d}</Text>
+            </TouchableOpacity>
           </View>
         </View>  
       </View>
@@ -136,22 +107,9 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     borderRadius:15,
     padding: 8,
-  },boxActv : {
-    backgroundColor: colors.primary,
-    elevation:20,
-    width:150,
-    height:80,
-    marginBottom:20,
-    justifyContent:'center',
-    borderRadius:15,
-    padding: 8,
   }, option : {
     fontFamily: fonts.primary[400],
     fontSize:14,
-  },  optionActv : {
-    fontFamily: fonts.primary[400],
-    fontSize:14,
-    color:colors.white
   }, title : {
     fontFamily: fonts.primary[600],
     fontSize:18,
@@ -169,4 +127,4 @@ const styles = StyleSheet.create({
   }
 
 });
-export default Kuis;
+export default Kuis2;
