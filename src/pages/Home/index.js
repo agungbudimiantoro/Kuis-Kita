@@ -24,7 +24,7 @@ const Home = ({navigation}) => {
       <Header />
       <Gap height={16} />
       {data.map((res) => {
-        return  <ListKuis key={res.id} title={res.title} desc={res.desc} image={{uri :res.image}} onPress={() => navigation.navigate('Kuis', res.id)} />
+        return  <ListKuis key={res.id} title={res.title} desc={res.desc} image={{uri :res.image}} onPress={() => navigation.navigate('Kuis', res)} />
       })}
      </View>
      </ScrollView>
