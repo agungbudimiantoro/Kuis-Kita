@@ -2,12 +2,12 @@ import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { colors, fonts } from '../../../utils';
 import { Gap } from '../index';
-const Input = ({title}) => {
+const Input = ({title, onChangeText, value, secureTextEntry}) => {
   return (
     <View>
         <Text style={styles.title}>{title}</Text>
         <Gap height={6} />
-        <TextInput style={styles.input} />
+        <TextInput style={styles.input} onChangeText={onChangeText} value={value}  secureTextEntry={secureTextEntry}  />
      </View>
   );
 }
