@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {ICHouse, ICUser, ICHouseActive, ICUserActvive} from '../../../assets';
 import { colors, fonts } from '../../../utils';
-const CustomButtom = ({label, onPress, onLongPress, active, key}) => {
+const CustomButtom = ({label, onPress, onLongPress, active}) => {
     const Icon = () => {
         if(label === 'Home'){
             return active ? 
